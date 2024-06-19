@@ -1,0 +1,25 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace BusinessObjects;
+
+public partial class RoomInformation
+{
+    public int RoomId { get; set; }
+
+    public string RoomNumber { get; set; } = null!;
+
+    public string? RoomDetailDescription { get; set; }
+
+    public int? RoomMaxCapacity { get; set; }
+
+    public int RoomTypeId { get; set; }
+
+    public byte? RoomStatus { get; set; } // 0 là xóa, 1 là còn trống, 2 là đã có khách
+
+    public decimal? RoomPricePerDay { get; set; }
+
+    public virtual ICollection<BookingDetail> BookingDetails { get; set; } = new List<BookingDetail>();
+
+    public virtual RoomType RoomType { get; set; } = null!;
+}

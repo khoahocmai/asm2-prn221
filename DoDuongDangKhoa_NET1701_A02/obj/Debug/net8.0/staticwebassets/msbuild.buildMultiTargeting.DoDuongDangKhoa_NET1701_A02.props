@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\DoDuongDangKhoa_NET1701_A02.props" />
+</Project>

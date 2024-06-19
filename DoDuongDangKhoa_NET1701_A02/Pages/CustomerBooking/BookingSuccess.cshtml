@@ -1,0 +1,19 @@
+﻿@page
+@model DoDuongDangKhoa_NET1701_A02.Pages.CustomerBooking.BookingSuccessModel
+@attribute [Microsoft.AspNetCore.Authorization.Authorize]
+@{
+    ViewData["Title"] = "Booking Success";
+}
+
+<h3>@ViewData["Title"]</h3>
+<hr />
+
+<div class="alert alert-success" role="alert">
+    Your booking has been successfully confirmed!
+</div>
+
+<p>
+    Thank you for choosing our hotel. We look forward to your stay.
+</p>
+
+<a href="/CustomerBooking/BookingHistory" class="btn btn-primary">Back to Booking history Page</a>

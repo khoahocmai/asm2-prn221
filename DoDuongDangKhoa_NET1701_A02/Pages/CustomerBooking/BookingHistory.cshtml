@@ -1,0 +1,41 @@
+﻿@page
+@model DoDuongDangKhoa_NET1701_A02.Pages.CustomerBooking.BookingHistoryModel
+@attribute [Microsoft.AspNetCore.Authorization.Authorize]
+
+@{
+    ViewData["Title"] = "Booking History";
+}
+
+<h3>@ViewData["Title"]</h3>
+<hr />
+
+@if (Model.Bookings.Any())
+{
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Booking Date</th>
+                <th>Total Price</th>
+                <th>Booking Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var booking in Model.Bookings)
+            {
+                <tr>
+                    <td>@booking.BookingDate</td>
+                    <td>@booking.TotalPrice</td>
+                    <td>@booking.BookingStatus</td>
+                    <td>
+                        <a asp-page="/CustomerBooking/BookingDetail" asp-route-id="@booking.BookingReservationId" class="btn btn-primary btn-sm">View Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No booking history found.</p>
+}

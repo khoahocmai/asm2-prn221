@@ -1,0 +1,45 @@
+﻿@page "{id:int}"
+@model DoDuongDangKhoa_NET1701_A02.Pages.CustomerBooking.BookingDetailModel
+@attribute [Microsoft.AspNetCore.Authorization.Authorize]
+@{
+    ViewData["Title"] = "Booking Detail";
+}
+
+<h3>@ViewData["Title"]</h3>
+<hr />
+<div>
+    <h4>Booking Information</h4>
+    <p><strong>Booking Date:</strong> @Model.BookingDetail.BookingDate</p>
+    <p><strong>Total Price:</strong> @Model.BookingDetail.TotalPrice</p>
+    <p><strong>Booking Status:</strong> @Model.BookingDetail.BookingStatus</p>
+</div>
+<hr />
+<h4>Room Details</h4>
+@if (Model.BookingDetail.RoomDetails.Any())
+{
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Room Number</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Actual Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var room in Model.BookingDetail.RoomDetails)
+            {
+                <tr>
+                    <td>@room.RoomNumber</td>
+                    <td>@room.StartDate</td>
+                    <td>@room.EndDate</td>
+                    <td>@room.ActualPrice</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No room details found for this booking.</p>
+}
