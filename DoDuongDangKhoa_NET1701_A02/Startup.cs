@@ -1,10 +1,12 @@
 ﻿using DataAccessObjects;
 using DoDuongDangKhoa_NET1701_A02.Hubs;
+using DoDuongDangKhoa_NET1701_A02.Quartzs;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Quartz;
+using Quartz.Impl;
+using Quartz.Spi;
 using Repositories;
-using Repositories.Quartzs;
 
 namespace DoDuongDangKhoa_NET1701_A02
 {
@@ -25,45 +27,28 @@ namespace DoDuongDangKhoa_NET1701_A02
             // Add SignalR to the container.
             services.AddSignalR();
 
-            // Add service to the container.
+            // Add repositories to the container.
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IRoomInformationRepository, RoomInformationRepository>();
             services.AddScoped<IBookingReservationRepository, BookingReservationRepository>();
             services.AddScoped<IBookingDetailRepository, BookingDetailRepository>();
 
-            // Add Quartz services via the static method
-            DependencyInjection.AddInfrastructure(services);
+            // Add Quartz room service
+            services.AddScoped<IQuartzRoomService, QuartzRoomService>();
+            // Register WorkerService as a hosted service
+            services.AddHostedService<WorkerService>();
 
             // Add authentication services
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
-                    options.LoginPath = "/Account/Login"; // Đường dẫn tới trang đăng nhập
+                    options.LoginPath = "/Account/Login"; // Path to the login page
                     options.AccessDeniedPath = "/Account/AccessDenied";
                 });
 
-            // Add Quartz services 
-            //services.AddQuartz(q =>
-            //{
-            //    q.UseMicrosoftDependencyInjectionJobFactory();
-            //    // q.UseMicrosoftDependencyInjectionScopedJobFactory();
-
-            //    // Create a "key" for the job
-            //    var jobKey = new JobKey("UpdateStatus");
-
-            //    // Register the job with the DI container
-            //    q.AddJob<UpdateStatusJob>(opts => opts.WithIdentity(jobKey));
-
-            //    // Create a trigger for the job
-            //    q.AddTrigger(opts => opts
-            //        .ForJob(jobKey) // link to the HelloWorldJob
-            //        .WithIdentity("UpdateStatusJob-trigger") // give the trigger a unique name
-            //        .WithCronSchedule(_configuration.GetSection("CronJob")?.Value)); // get cron schedule from configuration
-            //});
-            //services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
-
-            // DI
-            services.AddDbContext<FuminiHotelManagementContext>(options => options.UseSqlServer(_configuration.GetConnectionString("SqlConnection")));
+            // DI for DbContext
+            services.AddDbContext<FuminiHotelManagementContext>(options =>
+                options.UseSqlServer(_configuration.GetConnectionString("SqlConnection")));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

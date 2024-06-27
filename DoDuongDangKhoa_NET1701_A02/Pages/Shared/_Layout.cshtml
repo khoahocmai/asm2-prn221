@@ -21,6 +21,9 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/CustomerInfor/CustomerInfor">Customer Information</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/CustomerBooking/BookingHistory">Booking History</a>
                         </li>
                         <li class="nav-item">
@@ -31,7 +34,7 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <span class="navbar-text mr-2">@User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value</span>
+                                <span class="navbar-text mr-2">Hello: @User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value</span>
                                 <form method="post" asp-page="/Account/Logout">
                                     <button type="submit" class="btn btn-link nav-link text-dark">Logout</button>
                                 </form>
@@ -41,6 +44,9 @@
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Account/Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Account/Register">Register</a>
                             </li>
                         }
                     </ul>
@@ -62,6 +68,23 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+
+    <script>
+        // Setup SignalR connection
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/RoomHub")
+            .build();
+
+        connection.on("ReceiveRoomStatus", function (message) {
+            // You can implement logic here to update the UI with the room status
+            console.log("Room Status: " + message);
+        });
+
+        connection.start().catch(function (err) {
+            return console.error(err.toString());
+        });
+    </script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

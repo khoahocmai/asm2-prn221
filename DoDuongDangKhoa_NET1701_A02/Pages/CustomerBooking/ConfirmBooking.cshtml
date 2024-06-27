@@ -21,7 +21,7 @@
         <dt class="col-sm-3">Price Per Night</dt>
         <dd class="col-sm-9">@Model.RoomPricePerDay</dd>
     </dl>
-    <form method="post" asp-page="BookingSuccess">
+    <form method="post" asp-page-handler="Confirm">
         <input type="hidden" name="StartDate" value="@Model.StartDate.ToString("yyyy-MM-dd")" />
         <input type="hidden" name="EndDate" value="@Model.EndDate.ToString("yyyy-MM-dd")" />
         <input type="hidden" name="RoomId" value="@Model.RoomId" />

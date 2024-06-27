@@ -1,4 +1,5 @@
 using DoDuongDangKhoa_NET1701_A02;
+using DoDuongDangKhoa_NET1701_A02.Quartzs;
 
 internal class Program
 {
@@ -6,6 +7,7 @@ internal class Program
     {
         var host = CreateHostBuilder(args).Build();
         host.Run();
+
     }
 
     public static IHostBuilder CreateHostBuilder(string[] args) =>

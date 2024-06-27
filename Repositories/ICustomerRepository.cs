@@ -14,5 +14,6 @@ namespace Repositories
         Task<Customer> GetCustomerById(int id);
         Task Register(Customer cus);
         Task RemoveCustomer(Customer cus);
+        Task UpdateCustomer(Customer cus);
     }
 }

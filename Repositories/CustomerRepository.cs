@@ -24,5 +24,8 @@ namespace Repositories
 
         public Task RemoveCustomer(Customer cus)
             => CustomerDAO.Instance.RemoveCustomer(cus);
+
+        public Task UpdateCustomer(Customer cus)
+            => CustomerDAO.Instance.UpdateCustomer(cus);
     }
 }

@@ -52,6 +52,7 @@ namespace DoDuongDangKhoa_NET1701_A02.Pages.Account
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Email, user.EmailAddress),
+                    new Claim(ClaimTypes.Name, user.CustomerFullName),
                     new Claim("CustomerID", user.CustomerId.ToString())
                 };
 

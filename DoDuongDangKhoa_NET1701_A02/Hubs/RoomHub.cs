@@ -16,4 +16,5 @@ namespace DoDuongDangKhoa_NET1701_A02.Hubs
             await Clients.All.SendAsync("ReceiveMessage", message);
         }
     }
+
 }

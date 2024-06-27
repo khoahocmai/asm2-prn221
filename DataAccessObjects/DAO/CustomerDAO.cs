@@ -52,15 +52,21 @@ namespace DataAccessObjects.DAO
             await db.SaveChangesAsync();
         }
 
+        public async Task UpdateCustomer(Customer cus)
+        {
+            using var db = new FuminiHotelManagementContext();
+            db.Customers.Update(cus);
+            await db.SaveChangesAsync();
+        }
+
         public async Task RemoveCustomer(Customer cus)
         {
             using var db = new FuminiHotelManagementContext();
-            var c1 = await db.Customers.SingleOrDefaultAsync(m => m.CustomerId == cus.CustomerId);
-            if (c1 != null)
-            {
-                db.Customers.Remove(c1);
-                await db.SaveChangesAsync();
-            }
+            db.Customers.Remove(cus);
+            await db.SaveChangesAsync();
+
         }
+
+
     }
 }
