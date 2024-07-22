@@ -13,7 +13,7 @@ public partial class BookingReservation
 
     public int CustomerId { get; set; }
 
-    public byte? BookingStatus { get; set; }
+    public byte? BookingStatus { get; set; } // 1 là pending, 2 là finish
 
     public virtual ICollection<BookingDetail> BookingDetails { get; set; } = new List<BookingDetail>();
 

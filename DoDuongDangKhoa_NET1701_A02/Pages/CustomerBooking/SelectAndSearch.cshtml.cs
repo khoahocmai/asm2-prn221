@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using DataAccessObjects;
 using DataAccessObjects.DTO;
 using Repositories;
+using DoDuongDangKhoa_NET1701_A02.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace DoDuongDangKhoa_NET1701_A02.Pages.CustomerBooking
 {

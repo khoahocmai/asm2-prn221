@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = BusinessObjects
-build_property.ProjectDir = D:\CN\CN7\PRN221-ChienNV33\WorkspacePRN221\Assignment_2\BusinessObjects\
+build_property.ProjectDir = D:\CN\CN7\PRN221-ChienNV33\WorkspacePRN221\DoDuongDangKhoa_NET1701_A02_Version-3-layers\BusinessObjects\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

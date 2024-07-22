@@ -75,7 +75,14 @@ namespace DoDuongDangKhoa_NET1701_A02.Pages.CustomerInfor
             customer.Telephone = Telephone;
             customer.EmailAddress = EmailAddress;
             customer.CustomerBirthday = CustomerBirthday;
-            customer.Password = Password;
+            if (!string.IsNullOrWhiteSpace(Password) && Password != customer.Password)
+            {
+                customer.Password = Password;
+            }
+            else
+            {
+                customer.Password = customer.Password;
+            }
 
             await _customerRepo.UpdateCustomer(customer);
 

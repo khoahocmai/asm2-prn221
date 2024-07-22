@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using DataAccessObjects;
 using BusinessObjects;
 using Repositories;
+using Microsoft.AspNetCore.SignalR;
+using DoDuongDangKhoa_NET1701_A02.Hubs;
 
 namespace DoDuongDangKhoa_NET1701_A02.Pages.CustomerBooking
 {
@@ -12,12 +12,19 @@ namespace DoDuongDangKhoa_NET1701_A02.Pages.CustomerBooking
         private readonly IRoomInformationRepository _roomRepo;
         private readonly IBookingReservationRepository _bookingReservationRepo;
         private readonly IBookingDetailRepository _bookingDetailRepo;
+        private readonly IHubContext<RoomHub> _hubContext;
 
-        public ConfirmBookingModel(IRoomInformationRepository roomInformationRepository, IBookingReservationRepository bookingReservationRepository, IBookingDetailRepository bookingDetailRepo)
+        public ConfirmBookingModel(
+            IRoomInformationRepository roomInformationRepository,
+            IBookingReservationRepository bookingReservationRepository,
+            IBookingDetailRepository bookingDetailRepo,
+            IHubContext<RoomHub> hubContext
+            )
         {
             _roomRepo = roomInformationRepository;
             _bookingReservationRepo = bookingReservationRepository;
             _bookingDetailRepo = bookingDetailRepo;
+            _hubContext = hubContext;
         }
 
         [BindProperty]
@@ -38,6 +45,26 @@ namespace DoDuongDangKhoa_NET1701_A02.Pages.CustomerBooking
         [BindProperty]
         public decimal RoomPricePerDay { get; set; }
 
+
+        //public IActionResult OnGet(int roomId, DateTime startDate, DateTime endDate, string roomNumber, string roomTypeName, decimal roomPricePerDay)
+        //{
+        //    // Populate the properties with the passed parameters
+        //    RoomId = roomId;
+        //    StartDate = startDate;
+        //    EndDate = endDate;
+        //    RoomNumber = roomNumber;
+        //    RoomTypeName = roomTypeName;
+        //    RoomPricePerDay = roomPricePerDay;
+
+        //    // Check if the room ID is valid to display the confirmation details
+        //    if (RoomId <= 0)
+        //    {
+        //        return RedirectToPage("/Error");
+        //    }
+
+        //    return Page();
+        //}
+
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -54,7 +81,7 @@ namespace DoDuongDangKhoa_NET1701_A02.Pages.CustomerBooking
 
             RoomNumber = room.RoomNumber;
             RoomTypeName = room.RoomType.RoomTypeName;
-            RoomPricePerDay = (decimal) room.RoomPricePerDay;
+            RoomPricePerDay = (decimal)room.RoomPricePerDay;
 
             return Page();
         }
@@ -77,7 +104,7 @@ namespace DoDuongDangKhoa_NET1701_A02.Pages.CustomerBooking
                 BookingStatus = 1
             };
 
-            
+
             await _bookingReservationRepo.SaveBookingReservation(bookingReservation);
 
             var bookingDetail = new BookingDetail
@@ -90,6 +117,7 @@ namespace DoDuongDangKhoa_NET1701_A02.Pages.CustomerBooking
             };
 
             await _bookingDetailRepo.SaveBookingDetail(bookingDetail);
+            await _hubContext.Clients.All.SendAsync("ReceiveRoomStatus", bookingDetail.RoomId, "Available");
 
             return RedirectToPage("./BookingSuccess");
         }

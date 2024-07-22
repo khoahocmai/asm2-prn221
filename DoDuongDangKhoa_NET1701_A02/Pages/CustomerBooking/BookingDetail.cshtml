@@ -1,6 +1,7 @@
 ﻿@page "{id:int}"
 @model DoDuongDangKhoa_NET1701_A02.Pages.CustomerBooking.BookingDetailModel
 @attribute [Microsoft.AspNetCore.Authorization.Authorize]
+
 @{
     ViewData["Title"] = "Booking Detail";
 }
@@ -42,4 +43,12 @@
 else
 {
     <p>No room details found for this booking.</p>
+}
+
+<a asp-page="/CustomerBooking/BookingHistory" class="btn btn-primary">Back to Booking History</a>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

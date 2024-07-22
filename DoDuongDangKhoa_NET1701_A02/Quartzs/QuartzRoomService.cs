@@ -22,8 +22,7 @@ namespace DoDuongDangKhoa_NET1701_A02.Quartzs
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                var currentTime = DateOnly.FromDateTime(DateTime.Now); ;
-                _logger.LogInformation($"Current DateTime: {currentTime}");
+                var currentTime = DateOnly.FromDateTime(DateTime.Now);
 
                 var bookingDetails = _context.BookingDetails
                     .Include(b => b.BookingReservation)

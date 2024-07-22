@@ -42,8 +42,6 @@ namespace DoDuongDangKhoa_NET1701_A02.Pages.Account
                 return Page();
             }
 
-            //var user = await _context.Customers
-            //    .FirstOrDefaultAsync(u => u.EmailAddress == Email && u.Password == Password);
             var user = await _customerRepository.CheckLogin(Email, Password);
 
 

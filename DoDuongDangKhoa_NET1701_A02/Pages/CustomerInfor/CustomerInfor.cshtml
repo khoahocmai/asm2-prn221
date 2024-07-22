@@ -97,9 +97,7 @@
             const li = document.createElement("li");
             li.textContent = msg;
             document.getElementById("messagesList").appendChild(li);
-        });        
-
-        connection.start().catch(err => console.error(err.toString()));
+        });
 
         connection.start().catch(err => console.error(err.toString()));
 

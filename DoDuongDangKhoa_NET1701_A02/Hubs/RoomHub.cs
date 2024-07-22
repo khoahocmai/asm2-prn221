@@ -15,6 +15,11 @@ namespace DoDuongDangKhoa_NET1701_A02.Hubs
         {
             await Clients.All.SendAsync("ReceiveMessage", message);
         }
+
+        public async Task UpdateBookingStatus(int bookingId, int status)
+        {
+            await Clients.All.SendAsync("UpdateBookingStatus", bookingId, status);
+        }
     }
 
 }

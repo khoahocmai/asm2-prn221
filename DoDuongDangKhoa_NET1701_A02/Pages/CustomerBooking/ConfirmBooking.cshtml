@@ -30,29 +30,7 @@
         <input type="hidden" name="RoomPricePerDay" value="@Model.RoomPricePerDay" />
         <div class="d-flex justify-content-end">
             <button type="submit" class="btn btn-primary">Confirm Booking</button>
+            <a asp-page="/CustomerBooking/SelectAndSearch" class="btn btn-secondary ms-2">Back to Select Room</a>
         </div>
     </form>
 </div>
-
-@section Scripts {
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.18/signalr.min.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            const connection = new signalR.HubConnectionBuilder()
-                .withUrl("/RoomHub")
-                .build();
-
-            connection.on("ReceiveRoomStatus", function (roomId, status) {
-                console.log(`Room ID: ${roomId} - Status: ${status}`);
-                // Update UI accordingly, for example:
-                // $("#roomStatus_" + roomId).text(status);
-            });
-
-            connection.start().then(function () {
-                console.log("SignalR connected");
-            }).catch(function (err) {
-                return console.error(err.toString());
-            });
-        });
-    </script>
-}

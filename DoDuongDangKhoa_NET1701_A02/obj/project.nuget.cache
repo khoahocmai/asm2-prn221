@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "b1+AA7f/+lcQpmB4z6vkHpluvNv7nis4TL2TbKbLwfRLvDDVQsRCqs2pkHPn1XSxkpBc0eDUr6J0aRT7qQbulg==",
+  "dgSpecHash": "nacJ8WtZxgQ=",
   "success": true,
-  "projectFilePath": "D:\\CN\\CN7\\PRN221-ChienNV33\\WorkspacePRN221\\Assignment_2\\DoDuongDangKhoa_NET1701_A02\\DoDuongDangKhoa_NET1701_A02.csproj",
+  "projectFilePath": "D:\\CN\\CN7\\PRN221-ChienNV33\\WorkspacePRN221\\DoDuongDangKhoa_NET1701_A02_Version-3-layers\\DoDuongDangKhoa_NET1701_A02\\DoDuongDangKhoa_NET1701_A02.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

@@ -10,12 +10,10 @@ namespace DoDuongDangKhoa_NET1701_A02
     public class WorkerService : BackgroundService
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
-        private readonly ILogger<WorkerService> _logger;
 
         public WorkerService(IServiceScopeFactory serviceScopeFactory, ILogger<WorkerService> logger)
         {
             _serviceScopeFactory = serviceScopeFactory;
-            _logger = logger;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)

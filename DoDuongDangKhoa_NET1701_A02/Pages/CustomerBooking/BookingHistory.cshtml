@@ -39,3 +39,71 @@ else
 {
     <p>No booking history found.</p>
 }
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.11/signalr.min.js"></script>
+    <script type="text/javascript">
+        // Tạo kết nối tới RoomHub
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/roomHub")
+            .withAutomaticReconnect()
+            .build();
+
+        // Hàm cập nhật trạng thái booking
+        function updateBookingStatus() {
+            // Lấy token xác thực CSRF
+            var token = $('input:hidden[name="__RequestVerificationToken"]').val();
+
+            // Gọi AJAX để lấy dữ liệu mới
+            $.ajax({
+                url: '/CustomerBooking/BookingHistory?handler=FetchUpdatedData',
+                method: 'GET',
+                headers: {
+                    'RequestVerificationToken': token
+                },
+                success: function (data) {
+                    console.log("Data received:", data);  // Log dữ liệu nhận được
+                    // Cập nhật bảng booking với dữ liệu mới
+                    let tbody = $("table tbody");
+                    tbody.empty();
+                    data.forEach(function (booking) {
+                        let bookingDate = new Date(booking.bookingDate);
+                        let formattedDate = bookingDate.getFullYear() + '-' +
+                            ('0' + (bookingDate.getMonth() + 1)).slice(-2) + '-' +
+                            ('0' + bookingDate.getDate()).slice(-2);
+
+                        tbody.append(
+                            `<tr>
+                            <td>${formattedDate}</td>
+                            <td>${booking.totalPrice}</td>
+                            <td>${booking.bookingStatus}</td>
+                            <td><a href="/CustomerBooking/BookingDetail/${booking.bookingReservationId}" class="btn btn-primary btn-sm">View Details</a></td>
+                        </tr>`
+                        );
+                    });
+
+                },
+                error: function (err) {
+                    console.error("Lỗi khi lấy dữ liệu:", err);  // Log lỗi
+                }
+            });
+        }
+
+        // Khởi động kết nối
+        connection.start().then(function () {
+            console.log("Kết nối thành công tới RoomHub");
+
+            // Lắng nghe sự kiện ReceiveRoomStatus từ server
+            connection.on("ReceiveRoomStatus", function (message) {
+                console.log("Nhận được tin nhắn từ server: " + message);
+                // Cập nhật trạng thái booking khi nhận được tin nhắn
+                updateBookingStatus();
+            });
+        }).catch(function (err) {
+            console.error("Lỗi khi khởi động kết nối:", err.toString());
+        });
+    </script>
+}

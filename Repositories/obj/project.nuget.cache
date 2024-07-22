@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "IgqMH7JuP/85d3XUNhxe9Fveg9adE7KID3wA9bkfDnFRL4KkpL7A2/O6N8EwNAxiSaE3W4mCKL9FDOl3rIQqZQ==",
+  "dgSpecHash": "ErYxbMYMnkQ=",
   "success": true,
-  "projectFilePath": "D:\\CN\\CN7\\PRN221-ChienNV33\\WorkspacePRN221\\Assignment_2\\Repositories\\Repositories.csproj",
+  "projectFilePath": "D:\\CN\\CN7\\PRN221-ChienNV33\\WorkspacePRN221\\DoDuongDangKhoa_NET1701_A02_Version-3-layers\\Repositories\\Repositories.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
